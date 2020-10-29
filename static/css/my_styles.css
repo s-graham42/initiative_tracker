@@ -1,0 +1,37 @@
+#bg {
+    /* The image used */
+    background-image: url("/static/images/old_parchment.jpg");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 1000px;
+}
+.bg-ruddy {
+    background-color: #c51d1d;
+}
+a.bg-ruddy:hover, a.bg-ruddy:focus,
+button.bg-ruddy:hover,
+button.bg-ruddy:focus {
+    background-color: #9c1717 !important;
+}
+
+.bg-dk_red {
+    background-color: #660418 !important;
+}
+
+a.bg-dk_red:hover, a.bg-dk_red:focus,
+button.bg-dk_red:hover,
+button.bg-dk_red:focus {
+    background-color: #540313 !important;
+}
+
+#swords_logo {
+    width: 100px;
+}
+
+.thick_border {
+    border: 4px solid black !important;
+}
