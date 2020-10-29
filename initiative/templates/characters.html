@@ -1,0 +1,38 @@
+{% extends "inner_base.html" %}
+
+{% block content %}
+
+<h2>Characters: {{request.user.username}}'s characters</h2>
+<hr>
+<p>Add a character here to join a campaign.</p>
+
+<main class="row my-4">
+    <h2>All Characters</h2>
+    <table class="table table-light table-striped table-sm table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" colspan="3">Characters</th>
+                <th scope="col" colspan="2">Campaigns</th>
+            </tr>
+            <tr>
+                <th scope="col">Character Name</th>
+                <th scope="col">Dex</th>
+                <th scope="col">Total Bonus</th>
+                <th scope="col">Campaign Name</th>
+                <th scope="col">Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- {% for character in all_characters %} -->
+                <tr>
+                    <td>character.name</td>
+                    <td>character.dex</td>
+                    <td>character.bonus</td>
+                    <td>character.campaign_joined.name</td>
+                    <td>character.campaign_joined.code</td>
+                    <td>action</td>
+                </tr>
+            <!-- {% endfor %} -->
+        </tbody>
+    </table>
+{% endblock %}
