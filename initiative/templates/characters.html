@@ -11,7 +11,7 @@
         <h2>Create a Character:</h2>
     </div>
     <div class="row">
-        <form action="/initiative/create_character" method="POST">
+        <form action="/initiative/characters" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 {{form.name.errors}}
@@ -40,27 +40,28 @@
                     <th scope="col" colspan="3">Characters</th>
                     <th scope="col" colspan="2">Campaigns</th>
                 </tr>
-                {% for character in request.user.characters_created.all %}
                 <tr>
-                    <th scope="col">{{ character.name }}</th>
-                    <th scope="col">{{ character.dex }}</th>
-                    <th scope="col">+ {{ character.bonus}}</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Dex</th>
+                    <th scope="col">Total Bonus</th>
                     <th scope="col">Campaign Name</th>
                     <th scope="col">Code</th>
                 </tr>
-                {% endfor %}
             </thead>
             <tbody>
-                <!-- {% for character in request.user.characters_created.all %} -->
-                    <tr>
-                        <td>{{ character.name }}</td>
-                        <td>{{ character.dex }}</td>
-                        <td>+ {{ character.bonus}}</td>
-                        <td>character.campaign_joined.name</td>
-                        <td>character.campaign_joined.code</td>
-                        <td>action</td>
-                    </tr>
-                <!-- {% endfor %} -->
+                {% for character in request.user.characters_created.all %}
+                <tr>
+                    <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
+                    <td>{{ character.dex }}</td>
+                    <td>+ {{ character.bonus}}</td>
+                    {% if character.campaigns_joined is None %}
+                        <td colspan='2'><a href="/initiative/character/{{character.id}}">Join a Campaign</a></td>
+                    {% else %}
+                        <td>{{character.campaigns_joined.name}}</td>
+                        <td>{{character.campaigns_joined.code}}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

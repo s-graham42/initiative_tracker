@@ -11,14 +11,14 @@
         <h2>Create a Campaign:</h2>
     </div>
     <div class="row">
-        <form action="/initiative/create_character" method="POST">
+        <form action="/initiative/campaigns" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 {{form.name.errors}}
                 {{form.name.label_tag}}
                 {{form.name}}
             </div>
-            <input type="submit" value="Create">
+            <input type="submit" value="Create and get code">
         </form>
     </div>
     <div>
@@ -26,30 +26,17 @@
         <table class="table table-light table-striped table-sm table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" colspan="3">Characters</th>
-                    <th scope="col" colspan="2">Campaigns</th>
+                    <th scope="col">Campaigns Created:</th>
+                    <th scope="col">Code:</th>
                 </tr>
-                {% for character in request.user.campaigns_created.all %}
-                <tr>
-                    <th scope="col">{{ character.name }}</th>
-                    <th scope="col">{{ character.dex }}</th>
-                    <th scope="col">+ {{ character.bonus}}</th>
-                    <th scope="col">Campaign Name</th>
-                    <th scope="col">Code</th>
-                </tr>
-                {% endfor %}
             </thead>
             <tbody>
-                <!-- {% for character in all_characters %} -->
-                    <tr>
-                        <td>character.name</td>
-                        <td>character.dex</td>
-                        <td>character.bonus</td>
-                        <td>character.campaign_joined.name</td>
-                        <td>character.campaign_joined.code</td>
-                        <td>action</td>
-                    </tr>
-                <!-- {% endfor %} -->
+                {% for campaign in request.user.campaigns_created.all %}
+                <tr>
+                    <td>{{ campaign.name }}</td>
+                    <td>{{ campaign.code }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

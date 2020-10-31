@@ -1,0 +1,51 @@
+{% extends "inner_base.html" %}
+
+{% block content %}
+
+<h2>Character: {{one_char.name}}</h2>
+<h3>Owned by: {{one_char.user.username}}</h3>
+<h4>Dexterity Score: {{one_char.dex}}</h4>
+<h4>Total Initiative Bonus: + {{one_char.bonus}}</h4>
+<hr>
+<main class="my-4">
+    <div>
+        <h2>Join a Campaign:</h2>
+    </div>
+    <div class="row">
+        <form action="/initiative/character/{{one_char.id}}/join_campaign" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{form.name.errors}}
+                {{form.name.label_tag}}
+                {{form.name}}
+            </div>
+            <div class="form-group">
+                {{form.code.errors}}
+                {{form.code.label_tag}}
+                {{form.code}}
+            </div>
+            <input type="submit" value="Join Campaign">
+        </form>
+    </div>
+    <div>
+        <h2>All Campaigns Joined:</h2>
+        <table class="table table-light table-striped table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Campaign Name</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in one_char.campaigns_joined.all %}
+                <tr>
+                    <td>{{ campaign.name }}</td>
+                    <td>{{ campaign.code }}</td>
+                    <td><a href="/initiative/leave_campaign">Leave Campaign</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
