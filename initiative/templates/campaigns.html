@@ -8,7 +8,7 @@
 
 <main class="my-4">
     <div>
-        <h2>Create a Character:</h2>
+        <h2>Create a Campaign:</h2>
     </div>
     <div class="row">
         <form action="/initiative/create_character" method="POST">
@@ -18,29 +18,18 @@
                 {{form.name.label_tag}}
                 {{form.name}}
             </div>
-            <div class="form-group">
-                {{form.dex.errors}}
-                {{form.dex.label_tag}}
-                {{form.dex}}
-            </div>
-            <div class="form-group">
-                {{form.bonus.errors}}
-                {{form.bonus.label_tag}}
-                <p> + </p>
-                {{form.bonus}}
-            </div>
             <input type="submit" value="Create">
         </form>
     </div>
     <div>
-        <h2>All Characters</h2>
+        <h2>All Campaigns</h2>
         <table class="table table-light table-striped table-sm table-bordered">
             <thead>
                 <tr>
                     <th scope="col" colspan="3">Characters</th>
                     <th scope="col" colspan="2">Campaigns</th>
                 </tr>
-                {% for character in request.user.characters_created.all %}
+                {% for character in request.user.campaigns_created.all %}
                 <tr>
                     <th scope="col">{{ character.name }}</th>
                     <th scope="col">{{ character.dex }}</th>
@@ -51,11 +40,11 @@
                 {% endfor %}
             </thead>
             <tbody>
-                <!-- {% for character in request.user.characters_created.all %} -->
+                <!-- {% for character in all_characters %} -->
                     <tr>
-                        <td>{{ character.name }}</td>
-                        <td>{{ character.dex }}</td>
-                        <td>+ {{ character.bonus}}</td>
+                        <td>character.name</td>
+                        <td>character.dex</td>
+                        <td>character.bonus</td>
                         <td>character.campaign_joined.name</td>
                         <td>character.campaign_joined.code</td>
                         <td>action</td>
