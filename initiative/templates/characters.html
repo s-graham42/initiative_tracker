@@ -37,15 +37,15 @@
         <table class="table table-light table-striped table-sm table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" colspan="3">Characters</th>
-                    <th scope="col" colspan="2">Campaigns</th>
+                    <th scope="col" colspan="4">Characters</th>
+
                 </tr>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Dex</th>
                     <th scope="col">Total Bonus</th>
-                    <th scope="col">Campaign Name</th>
-                    <th scope="col">Code</th>
+                    <th scope="col">Campaigns</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -54,12 +54,24 @@
                     <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
                     <td>{{ character.dex }}</td>
                     <td>+ {{ character.bonus}}</td>
-                    {% if character.campaigns_joined is None %}
-                        <td colspan='2'><a href="/initiative/character/{{character.id}}">Join a Campaign</a></td>
-                    {% else %}
-                        <td>{{character.campaigns_joined.name}}</td>
-                        <td>{{character.campaigns_joined.code}}</td>
-                    {% endif %}
+                    <td>
+                        {% if character.campaigns_joined.all|length > 0 %}
+                        <table class="table table-light table-sm">
+                            <tr>
+                                <th scope="col">Campaign Name</th>
+                                <th scope="col">Code</th>
+                            </tr>
+                            {% for campaign in character.campaigns_joined.all %}
+                            <tr>
+                                <td><a href="/initiative/campaign/{{campaign.id}}">{{campaign.name}}</a></td>
+                                <td>{{campaign.code}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        {% else %}
+                        <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
