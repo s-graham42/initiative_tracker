@@ -87,3 +87,27 @@ def join_campaign(request, char_id):
         return redirect('/initiative/characters')
     return redirect('/')
     
+def initiative_main(request, campaign_id):
+    if request.user.is_authenticated: # is user logged in?
+        one_campaign = Campaign.objects.filter(id=campaign_id)
+        if len(one_campaign) > 0:
+            one_campaign = one_campaign[0]
+            context = {
+                'campaign': one_campaign,
+                'characters': Character.objects.filter(campaigns_joined=one_campaign).order_by('-current_init', '-dex', '-bonus'),
+            }
+            return render(request, 'initiative_main.html', context)
+        return redirect('/initiative/campaigns')
+    return redirect('/')
+
+def enter_initiative(request, char_id):
+    if request.method == "POST":
+        if request.user.is_authenticated: # is user logged in?
+            this_character = Character.objects.filter(id=char_id) # does the character exist?
+            if len(this_character) > 0:
+                this_character = this_character[0]
+                if this_character.user.id == request.user.id:
+                    this_character.current_init = request.POST['current_initiative']
+                    this_character.save()
+                    return redirect(f"/initiative/campaigns/{request.POST['current_campaign']}")
+    return redirect('/')

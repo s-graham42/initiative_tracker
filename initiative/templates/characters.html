@@ -26,8 +26,7 @@
             <div class="form-group">
                 {{form.bonus.errors}}
                 {{form.bonus.label_tag}}
-                <p> + </p>
-                {{form.bonus}}
+                <p><strong>+</strong> {{form.bonus}}</p>
             </div>
             <input type="submit" value="Create">
         </form>
@@ -63,7 +62,7 @@
                             </tr>
                             {% for campaign in character.campaigns_joined.all %}
                             <tr>
-                                <td><a href="/initiative/campaign/{{campaign.id}}">{{campaign.name}}</a></td>
+                                <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
                                 <td>{{campaign.code}}</td>
                             </tr>
                             {% endfor %}

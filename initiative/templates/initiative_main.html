@@ -1,0 +1,46 @@
+{% extends "inner_base.html" %}
+
+{% block content %}
+
+<h2 class="my-5">Campaign: {{campaign.name}}</h2>
+<hr>
+<p>Here you can edit your character's initiative score and it will automatically be resorted with the rest of the party.</p>
+
+<main class="my-4">
+    <div>
+        <h2>Campaign Initiative:</h2>
+        <table class="table table-light table-striped table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Character</th>
+                    <th scope="col">Dex</th>
+                    <th scope="col">Bonus</th>
+                    <th scope="col">Current Initiative</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in characters %}
+                <tr>
+                    <td>{{ character.user.username }}</td>
+                    <td>{{ character.name }}</td>
+                    <td>{{ character.dex }}</td>
+                    <td>{{ character.bonus }}</td>
+                    {% if request.user.id == character.user.id %}
+                    <form action="/initiative/enter_initiative/{{character.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="current_campaign" value="{{campaign.id}}">
+                        <td><input type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
+                        <td><input class="btn btn-sm btn-primary" type="submit" value="Submit"></td>
+                    </form>
+                    {% else %}
+                        <td>{{ character.current_init }}</td>
+                        <td> - </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
