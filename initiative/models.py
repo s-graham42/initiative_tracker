@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 class Campaign(models.Model):
     name = models.CharField(max_length=128)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=10, null=True, blank=True)
     user = models.ForeignKey(User, related_name="campaigns_created", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

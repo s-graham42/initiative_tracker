@@ -3,16 +3,16 @@
 {% block content %}
 <main class="container">
     <div class="row justify-content-center">
-        <h2>Profile</h2>
+        <h3 class="col-6 mx-auto p-1 text-white text-center bg-dark thick_border">Profile</h3>
     </div>
     <div class="row my-3">
-        <h3>Username: {{request.user.username}}</h3>
+        <h3><small>Username:</small> <strong>{{request.user.username}}</strong></h3>
     </div>
     <div class="row my-3">
-        <h4>{{request.user.username}}'s Characters:</h4>
+        <h4>{{request.user.username}}'s Characters</h4>
     </div>
-    <div class="row my-3">
-        <table class="table table-light table-striped table-sm table-bordered font-weight-bold">
+    <div class="row my-3" style="overflow-x:auto;">
+        <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
             <thead>
                 <tr>
                     <th scope="col" colspan="3" class="text-center">Characters</th>
@@ -33,7 +33,7 @@
                     <td>+ {{ character.bonus}}</td>
                     <td>
                         {% if character.campaigns_joined.all|length > 0 %}
-                        <table class="table table-light table-sm">
+                        <table class="table table-sm table-borderless bg-parch-tran">
                             {% for campaign in character.campaigns_joined.all %}
                             <tr>
                                 <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
@@ -50,19 +50,19 @@
             </tbody>
         </table>
     </div>
-    <div class="row my-3">
-        <h2>All Campaigns</h2>
-        <table class="table table-light table-striped table-sm table-bordered">
+    <div style="overflow-x:auto;" class="row my-3">
+        <h4>{{request.user.username}}'s Created Campaigns</h4>
+        <table class="table table-light table-sm font-weight-bold table-bordered bg-parch-tran shadow">
             <thead>
                 <tr>
-                    <th scope="col">Campaigns Created:</th>
+                    <th class="scope="col">Campaign Name:</th>
                     <th scope="col">Code:</th>
                 </tr>
             </thead>
             <tbody>
                 {% for campaign in request.user.campaigns_created.all %}
                 <tr>
-                    <td>{{ campaign.name }}</td>
+                    <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
                     <td>{{ campaign.code }}</td>
                 </tr>
                 {% endfor %}

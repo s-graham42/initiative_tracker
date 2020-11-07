@@ -9,6 +9,9 @@
     background-size: cover;
     min-height: 800px;
 }
+.bg-parch-tran {
+    background-color: #ffc77361;
+}
 .bg-ruddy {
     background-color: #c51d1d;
 }
@@ -54,4 +57,13 @@ button.bg-royal:focus {
 
 .thick_border {
     border: 4px solid black !important;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+    border: 0.5px solid #000000;
 }
