@@ -33,14 +33,16 @@
                     <td>+ {{ character.bonus}}</td>
                     <td>
                         {% if character.campaigns_joined.all|length > 0 %}
-                        <table class="table table-sm table-borderless bg-parch-tran">
+                        <ul class="list-group">
                             {% for campaign in character.campaigns_joined.all %}
-                            <tr>
-                                <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
-                                <td>{{campaign.code}}</td>
-                            </tr>
+                            <li class="list-group-item p-1 bg-parch-tran">
+                                <ul class="list-inline text-center">
+                                    <li class="list-inline-item mx-4"><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></li>
+                                    <li class="list-inline-item mx-4">{{campaign.code}}</li>
+                                </ul>
+                            </li>
                             {% endfor %}
-                        </table>
+                        </ul>
                         {% else %}
                         <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
                         {% endif %}

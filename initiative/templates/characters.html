@@ -18,87 +18,91 @@
             </ul>
         </div>
     </div>
-        <div>
-            <h4>Create a Character:</h4>
-        </div>
-        <div class="font-weight-bold">
-            <form class="row" action="/initiative/characters" method="POST">
-                {% csrf_token %}
-                {{ form.non_field_errors }}
-                <div class="col-md-4">
-                    {{form.name.errors}}
-                    <div class="col-sm-12">
-                        {{form.name.label_tag}}
-                    </div>
-                    <div class="col-sm-12">
-                        {{form.name}}
-                    </div>
+    <div>
+        <h4>Create a Character:</h4>
+    </div>
+    <div class="font-weight-bold">
+        <form class="row" action="/initiative/characters" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="col-md-4">
+                {{form.name.errors}}
+                <div class="col-sm-12">
+                    {{form.name.label_tag}}
                 </div>
-                <div class="col-md-4">
-                    {{form.dex.errors}}
-                    <div class="col-sm-12">
-                        {{form.dex.label_tag}}
-                    </div>
-                    <div class="col-sm-12">
-                        {{form.dex}}
-                    </div>
+                <div class="col-sm-12">
+                    {{form.name}}
                 </div>
-                <div class="col-md-4">
-                    {{form.bonus.errors}}
-                    <div class="col-sm-12">
-                        {{form.bonus.label_tag}}
-                    </div>
-                    <div class="col-sm-12">{{form.bonus}}</div>
+            </div>
+            <div class="col-md-4">
+                {{form.dex.errors}}
+                <div class="col-sm-12">
+                    {{form.dex.label_tag}}
                 </div>
-                <div class="col text-center my-2">
-                    <input class="btn btn-sm btn-gray bg-ruddy text-white mx-5 my-2 align-middle thick_border" type="submit" value="Create">
+                <div class="col-sm-12">
+                    {{form.dex}}
                 </div>
-            </form>
-        </div>
-        <div class="row my-3">
-            <h4>All Characters</h4>
-        </div>
-        <div class="row my-3" style="overflow-x:auto;">
-            <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
-                <thead>
-                    <tr>
-                        <th scope="col" colspan="3">Characters</th>
-                        <th scope="col" colspan="2">Campaigns</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Dex</th>
-                        <th scope="col">Total Bonus</th>
-                        <th scope="col" class="text-center">Campagn Name and Code</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for character in request.user.characters_created.all %}
-                    <tr>
-                        <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
-                        <td>{{ character.dex }}</td>
-                        <td>+ {{ character.bonus}}</td>
-                        <td>
-                            {% if character.campaigns_joined.all|length > 0 %}
-                            <table class="table table-light table-sm">
-                                {% for campaign in character.campaigns_joined.all %}
-                                <tr>
-                                    <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
-                                    <td>{{campaign.code}}</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                            {% else %}
-                            <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
-                            {% endif %}
-                        </td>
-                        <td><a class="btn btn-sm bg-dk_red text-white border-dark my-2 align-middle" href="/initiative/character/{{character.id}}">Join Another Campaign</a></td>
-                        <td>Delete</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        
+            </div>
+            <div class="col-md-4">
+                {{form.bonus.errors}}
+                <div class="col-sm-12">
+                    {{form.bonus.label_tag}}
+                </div>
+                <div class="col-sm-12">{{form.bonus}}</div>
+            </div>
+            <div class="col text-center my-2">
+                <input class="btn btn-sm btn-gray bg-ruddy text-white mx-5 my-2 align-middle thick_border" type="submit" value="Create">
+            </div>
+        </form>
+    </div>
+    <div class="row my-3">
+        <h4>All Characters</h4>
+    </div>
+    <div class="row my-3" style="overflow-x:auto;">
+        <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="3" class="text-center">Characters</th>
+                    <th scope="col" class="text-center">Campaigns</th>
+                    <th scope="col" colspan="2" class="text-center">Actions</th>
+                </tr>
+                <tr>
+                    <th scope="col" class="text-center">Name</th>
+                    <th scope="col" class="text-center">Dex</th>
+                    <th scope="col" class="text-center">Total Bonus</th>
+                    <th scope="col" class="text-center">Campagn Name and Code</th>
+                    <th scope="col" class="text-center">Join Another Campaign</th>
+                    <th scope="col" class="text-center">Delete Character</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in request.user.characters_created.all %}
+                <tr>
+                    <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
+                    <td class="text-center">{{ character.dex }}</td>
+                    <td class="text-center">+ {{ character.bonus}}</td>
+                    <td class="text-center">
+                        {% if character.campaigns_joined.all|length > 0 %}
+                        <ul class="list-group">
+                            {% for campaign in character.campaigns_joined.all %}
+                            <li class="list-group-item p-1 bg-parch-tran">
+                                <ul class="list-inline text-center">
+                                    <li class="list-inline-item mx-3"><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></li>
+                                    <li class="list-inline-item mx-3">{{campaign.code}}</li>
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
+                        {% endif %}
+                    </td>
+                    <td class="text-center"><a class="btn btn-sm bg-dk_red text-white border-dark my-2 align-middle" href="/initiative/character/{{character.id}}">Join</a></td>
+                    <td class="text-center">Delete</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </main>
 {% endblock %}
