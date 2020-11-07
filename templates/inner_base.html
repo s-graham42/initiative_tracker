@@ -13,20 +13,28 @@
         <div class="container" id="bg">
             <div class="container col-lg-10 mx-auto">
                 <div class="row justify-content-center thick_border border-dark">
-                    <div class="col-lg-2">
-                        <a class="align-middle mx-auto" href="/"><img id="swords_logo" src="{% static '/images/swords_logo.png' %}" alt="Swords Logo"></a>
+                    <div class="d-none d-sm-inline-block col-sm-12 col-md-2 text-center">
+                        <a class="mx-auto" href="/"><img id="swords_logo" src="{% static '/images/swords_logo.png' %}" alt="Swords Logo"></a>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-md-8">
                         <h2 class="text-center text-white mx-auto bg-ruddy my-3 p-2 align-middle thick_border border-dark">Welcome to Initiative Tracker</h2>
                     </div>
-                    <div class="col-lg-2 mx-auto">
-                        <a class="btn btn-gray bg-dk_red text-white mx-auto my-4 align-middle thick_border" href="/accounts/logout"> Log Out</a>
+                    <div class="col-sm-12 col-md-2 text-center">
+                        <a class="btn btn-gray bg-royal text-white mx-auto my-3 thick_border" href="/accounts/login"> Log In</a>
                     </div>
-                    <nav class="row">
-                        <a class="btn btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/accounts/profile"> Profile</a>
-                        <a class="btn btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/characters"> Characters</a>
-                        <a class="btn btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/campaigns"> Campaigns</a>
-                        <a class="btn btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="#"> Account</a>
+                    <nav class="row ">
+                        <div class="col-6 col-sm-3 text-center">
+                            <a class="btn btn-gray bg-dk_red text-white my-2 thick_border" href="/accounts/profile"> Profile</a>
+                        </div>
+                        <div class="col-6 col-sm-3 text-center">
+                            <a class="btn btn-gray bg-dk_red text-white my-2 thick_border" href="/initiative/characters"> Characters</a>
+                        </div>
+                        <div class="col-6 col-sm-3 text-center">
+                            <a class="btn btn-gray bg-dk_red text-white my-2 thick_border" href="/initiative/campaigns"> Campaigns</a>
+                        </div>
+                        <div class="col-6 col-sm-3 text-center">
+                            <a class="btn btn-gray bg-dk_red text-white my-2 thick_border" href="#"> Account</a>
+                        </div>
                     </nav>
                 </div>
                 <div class="container justify-content-center my-4">

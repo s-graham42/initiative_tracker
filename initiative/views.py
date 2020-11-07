@@ -36,6 +36,7 @@ def campaigns(request):
         if request.method == "POST":
             print(dict(request.POST))
             form = CampaignForm(request.POST)
+            print(form)
             if form.is_valid():
                 print("form is valid")
                 # save the name
@@ -48,7 +49,9 @@ def campaigns(request):
                 newCampaign.user = request.user
                 newCampaign.save()
                 print("newCampaign saved")
-                return HttpResponseRedirect('/initiative/campaigns')
+                return redirect('/initiative/campaigns')
+            else:
+                print("Not Valid")
         else:
             form = CampaignForm()
             return render(request, 'campaigns.html', {'form': form})
