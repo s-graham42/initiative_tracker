@@ -7,7 +7,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 1000px;
+    min-height: 800px;
 }
 .bg-ruddy {
     background-color: #c51d1d;
@@ -26,6 +26,26 @@ a.bg-dk_red:hover, a.bg-dk_red:focus,
 button.bg-dk_red:hover,
 button.bg-dk_red:focus {
     background-color: #540313 !important;
+}
+
+.bg-flame {
+    background-color: #C43E0E !important;
+}
+
+a.bg-flame:hover, a.bg-flame:focus,
+button.bg-flame:hover,
+button.bg-flame:focus {
+    background-color: #902D0A !important;
+}
+
+.bg-royal {
+    background-color: #023674 !important;
+}
+
+a.bg-royal:hover, a.bg-royal:focus,
+button.bg-royal:hover,
+button.bg-royal:focus {
+    background-color: #012653 !important;
 }
 
 #swords_logo {

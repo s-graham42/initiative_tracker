@@ -2,49 +2,61 @@
 
 {% block content %}
 
-<h2>Characters: {{request.user.username}}'s characters</h2>
+<div class="row">
+    <div class="col sm-6">
+        <h2><small>Characters:</small> {{request.user.username}}'s characters</h2>
+    </div>
+    <div class="col sm-6">
+        <p>Add a character here to join a campaign.</p>
+        <ul>
+            <li><strong>Name</strong> should be your Character's in-game name.</li>
+            <li><strong>Dex</strong> should be your character's Dexterity ability score.</li>
+            <li><strong>Bonus</strong> should be your character's <em>total</em> bonus to initiative.</li>
+        </ul>
+    </div>
+</div>
 <hr>
-<p>Add a character here to join a campaign.</p>
-
 <main class="my-4">
     <div>
         <h2>Create a Character:</h2>
     </div>
-    <div class="row">
+    <div class="row font-weight-bold">
         <form action="/initiative/characters" method="POST">
             {% csrf_token %}
-            <div class="form-group">
+            {{ form.non_field_errors }}
+            <div class="d-inline m-3 form-group">
                 {{form.name.errors}}
                 {{form.name.label_tag}}
                 {{form.name}}
             </div>
-            <div class="form-group">
+            <div class="d-inline m-3 form-group">
                 {{form.dex.errors}}
                 {{form.dex.label_tag}}
                 {{form.dex}}
             </div>
-            <div class="form-group">
+            <div class="d-inline m-3 form-group">
                 {{form.bonus.errors}}
                 {{form.bonus.label_tag}}
-                <p><strong>+</strong> {{form.bonus}}</p>
+                +  {{form.bonus}}
             </div>
-            <input type="submit" value="Create">
+            <div class="row justify-content-end">
+                <input class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" type="submit" value="Create">
+            </div>
         </form>
     </div>
     <div>
         <h2>All Characters</h2>
-        <table class="table table-light table-striped table-sm table-bordered">
+        <table class="table table-light table-striped table-sm table-bordered font-weight-bold">
             <thead>
                 <tr>
-                    <th scope="col" colspan="4">Characters</th>
-
+                    <th scope="col" colspan="3">Characters</th>
+                    <th scope="col" colspan="2">Campaigns</th>
                 </tr>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Dex</th>
                     <th scope="col">Total Bonus</th>
-                    <th scope="col">Campaigns</th>
-
+                    <th scope="col" class="text-center">Campagn Name and Code</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,10 +68,6 @@
                     <td>
                         {% if character.campaigns_joined.all|length > 0 %}
                         <table class="table table-light table-sm">
-                            <tr>
-                                <th scope="col">Campaign Name</th>
-                                <th scope="col">Code</th>
-                            </tr>
                             {% for campaign in character.campaigns_joined.all %}
                             <tr>
                                 <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
@@ -71,6 +79,8 @@
                         <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
                         {% endif %}
                     </td>
+                    <td><a class="btn btn-sm bg-dk_red text-white border-dark my-2 align-middle" href="/initiative/character/{{character.id}}">Join Another Campaign</a></td>
+                    <td>Delete</td>
                 </tr>
                 {% endfor %}
             </tbody>

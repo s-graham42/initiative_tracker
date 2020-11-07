@@ -13,20 +13,27 @@
         <div class="container" id="bg">
             <div class="container col-lg-10 mx-auto">
                 <div class="row justify-content-center thick_border border-dark">
-                    <div class="col-lg-2">
-                        <a class="align-middle mx-auto" href="/"><img id="swords_logo" src="{% static '/images/swords_logo.png' %}" alt="Swords Logo"></a>
+                    <div class="d-none d-sm-inline-block col-sm-12 col-md-2 text-center">
+                        <a class="mx-auto" href="/"><img id="swords_logo" src="{% static '/images/swords_logo.png' %}" alt="Swords Logo"></a>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-md-8">
                         <h2 class="text-center text-white mx-auto bg-ruddy my-3 p-2 align-middle thick_border border-dark">Welcome to Initiative Tracker</h2>
                     </div>
-                    <div class="col-lg-2 mx-auto">
-                        <a class="btn btn-gray bg-ruddy text-white mx-auto my-3 align-middle thick_border" href="/accounts/login"> Log In</a>
+                    <div class="col-sm-12 col-md-2 text-center">
+                        <a class="btn btn-gray bg-royal text-white mx-auto my-3 thick_border" href="/accounts/login"> Log In</a>
                     </div>
                 </div>
                 <div class="container justify-content-center my-4">
                 {% block content %}
                 {% endblock %}
                 </div>
+            </div>
+            <div class="row justify-content-center thick_border border-dark text-white bg-ruddy">
+                <ul class="list-group my-3">
+                    <li class="list-group"><a href="https://github.com/s-graham42/initiative_tracker">github for this site</a></li>
+                    <li class="list-group">Parchment Background from: <a href="https://www.myfreetextures.com/worn-parchment-paper-2/">myfreetextures.com</a></li>
+                    <li class="list-group">Copyright 2020 Stephen Graham</li>
+                </ul>
             </div>
         </div>
     </div>
