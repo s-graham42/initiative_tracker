@@ -14,6 +14,9 @@ body {
     background-size: cover;
     min-height: 800px;
 }
+.bg-parch {
+    background-color: #eabe7c;
+}
 .bg-parch-tran {
     background-color: #ffc77361;
 }

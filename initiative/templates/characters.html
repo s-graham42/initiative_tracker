@@ -94,15 +94,40 @@
                             {% endfor %}
                         </ul>
                         {% else %}
-                        <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
+                        <a class="btn btn-sm btn-gray bg-ruddy text-white mx-5 my-1 align-middle border-dark" href="/initiative/character/{{character.id}}">Join a Campaign</a>
                         {% endif %}
                     </td>
-                    <td class="text-center"><a class="btn btn-sm bg-dk_red text-white border-dark my-2 align-middle" href="/initiative/character/{{character.id}}">Join Another</a></td>
-                    <td class="text-center">Delete</td>
+                    <td class="text-center"><a class="btn btn-sm bg-ruddy text-white border-dark my-1 align-middle" href="/initiative/character/{{character.id}}">Join Another</a></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm bg-dk_red text-white my-1 align-middle" data-toggle="modal" data-target="#deleteModal" data-character_id="{{character.id}}">Delete</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-parch font-weight-bold">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete this character?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary border-dark" data-dismiss="modal">Close</button>
+                    <form id="deleteForm" action="/initiative/character/{{character.id}}/destroy" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-grey bg-dk_red text-white my-1 align-middle border-dark">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 {% endblock %}

@@ -106,7 +106,16 @@ def leave_campaign(request, char_id):
         return redirect('/initiative/characters')
     return redirect('/')
 
-
+def delete_character(request, char_id):
+    if request.user.is_authenticated: # is user logged in?
+        if request.method == 'POST':
+            one_char = Character.objects.filter(id=char_id) # does the character exist?
+            if len(one_char) > 0:
+                one_char = one_char[0] # if it does, select the first one in the list.
+                if one_char.user == request.user: # does the logged in user own this character?
+                    one_char.delete()
+        return redirect('/initiative/characters')           
+    return redirect('/')
     
 def initiative_main(request, campaign_id):
     if request.user.is_authenticated: # is user logged in?

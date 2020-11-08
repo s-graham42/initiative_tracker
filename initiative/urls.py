@@ -8,5 +8,6 @@ urlpatterns = [
     path('character/<int:char_id>', views.show_character),
     path('character/<int:char_id>/join_campaign', views.join_campaign),
     path('character/<int:char_id>/leave_campaign', views.leave_campaign),
+    path('character/<int:char_id>/destroy', views.delete_character),
     path('enter_initiative/<int:char_id>', views.enter_initiative),
 ]
