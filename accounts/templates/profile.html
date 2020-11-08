@@ -9,7 +9,12 @@
         <h3><small>Username:</small> <strong>{{request.user.username}}</strong></h3>
     </div>
     <div class="row my-3">
-        <h4>{{request.user.username}}'s Characters</h4>
+        <div class="col-6">
+            <h4>{{request.user.username}}'s Characters</h4>
+        </div>
+        <div class="col-6">
+            <a class="btn btn-sm btn-gray bg-dk_red text-white thick_border shadow" href="/initiative/characters">Create a Character</a>
+        </div>
     </div>
     <div class="row my-3" style="overflow-x:auto;">
         <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
@@ -52,8 +57,15 @@
             </tbody>
         </table>
     </div>
+    <div class="row my-3">
+        <div class="col-6">
+            <h4>{{request.user.username}}'s Created Campaigns</h4>
+        </div>
+        <div class="col-6">
+            <a class="btn btn-sm btn-gray bg-dk_red text-white thick_border shadow" href="/initiative/campaigns">Create a Campaign</a>
+        </div>
+    </div>
     <div style="overflow-x:auto;" class="row my-3">
-        <h4>{{request.user.username}}'s Created Campaigns</h4>
         <table class="table table-light table-sm font-weight-bold table-bordered bg-parch-tran shadow">
             <thead>
                 <tr>
