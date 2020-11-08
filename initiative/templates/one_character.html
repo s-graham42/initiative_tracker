@@ -1,35 +1,50 @@
 {% extends "inner_base.html" %}
 
 {% block content %}
-
-<h2>Character: {{one_char.name}}</h2>
-<h3>Owned by: {{one_char.user.username}}</h3>
-<h4>Dexterity Score: {{one_char.dex}}</h4>
-<h4>Total Initiative Bonus: + {{one_char.bonus}}</h4>
-<hr>
-<main class="my-4">
-    <div>
-        <h2>Join a Campaign:</h2>
+<main class="container">
+    <div class="row justify-content-center">
+        <h3 class="col-sm-8 mx-auto p-1 text-white text-center bg-dark thick_border">Character: {{one_char.name}}</h3>
     </div>
-    <div class="row">
-        <form action="/initiative/character/{{one_char.id}}/join_campaign" method="POST">
+    <div class="row my-3">
+        <div class="col">
+            <ul>
+                <li><h5>Owned by User: <strong>{{one_char.user.username}}</strong></h5></li>
+                <li><h5>Dexterity Score: {{one_char.dex}}</h5></li>
+                <li><h5>Total Initiative Bonus: + {{one_char.bonus}}</h5></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h4>Join a Campaign:</h4>
+    </div>
+    <div class="font-weight-bold my-3">
+        <form class="row" action="/initiative/character/{{one_char.id}}/join_campaign" method="POST">
             {% csrf_token %}
-            <div class="form-group">
+            {{form.non_field_errors}}
+            <div class="col-md-5">
                 {{form.name.errors}}
-                {{form.name.label_tag}}
-                {{form.name}}
+                <div class="col-sm-12">
+                    {{form.name.label_tag}}
+                    {{form.name}}
+                </div>
             </div>
-            <div class="form-group">
+            <div class="col-md-5">
                 {{form.code.errors}}
-                {{form.code.label_tag}}
-                {{form.code}}
+                <div class="col-sm-12">
+                    {{form.code.label_tag}}
+                    {{form.code}}
+                </div>
             </div>
-            <input type="submit" value="Join Campaign">
+            <div class="col text-center my-2">
+                <input class="btn btn-sm btn-gray bg-ruddy text-white mx-5 my-2 align-middle thick_border" type="submit" value="Join Campaign">
+            </div>
         </form>
     </div>
-    <div>
-        <h2>All Campaigns Joined:</h2>
-        <table class="table table-light table-striped table-sm table-bordered">
+    <div class="row my-3">
+        <h4>All Campaigns Joined</h4>
+    </div>
+    <div class="row my-3" style="overflow-x:auto;">
+        <table class="table table-light table-sm table-bordered font-weight-bold text-center bg-parch-tran shadow">
             <thead>
                 <tr>
                     <th scope="col">Campaign Name</th>
@@ -40,9 +55,15 @@
             <tbody>
                 {% for campaign in one_char.campaigns_joined.all %}
                 <tr>
-                    <td>{{ campaign.name }}</td>
+                    <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
                     <td>{{ campaign.code }}</td>
-                    <td><a href="/initiative/leave_campaign">Leave Campaign</a></td>
+                    <td>
+                        <form action="/initiative/character/{{one_char.id}}/leave_campaign" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="campaign" value="{{campaign.id}}">
+                            <input class="btn btn-sm btn-gray bg-dk_red text-white p-1 thick_border" type="submit" value="Leave Campaign">
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

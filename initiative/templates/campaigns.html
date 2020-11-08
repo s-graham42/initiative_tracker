@@ -1,30 +1,45 @@
 {% extends "inner_base.html" %}
 
 {% block content %}
-
-<h2>Characters: {{request.user.username}}'s Campaigns</h2>
-<hr>
-<p>Add a character here to join a campaign.</p>
-
-<main class="my-4">
-    <div>
-        <h2>Create a Campaign:</h2>
+<main class="container">
+    <div class="row justify-content-center">
+        <h3 class="col-sm-8 mx-auto p-1 text-white text-center bg-dark thick_border">Campaigns</h3>
+    </div>
+    <div class="row my-3">
+        <h3><small>Campaigns Created By:</small> <strong>{{request.user.username}}</strong></h3>
     </div>
     <div class="row">
-        {{form.non_field_errors}}
-        <form action="/initiative/campaigns" method="POST">
+        <div class="col font-weight-bold">
+            <p>Add a Campaign below.</p>
+            <ul>
+                <li>Adding a campaign gives you a unique place for your party's initiative sort.</li>
+                <li>All you need is a name.</li>
+                <li>A code will be randomly generated.</li>
+                <li>Send the Name and Code to your players so they can join your campaign.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="font-weight-bold">
+        <form class="row" action="/initiative/campaigns" method="POST">
             {% csrf_token %}
-            <div class="form-group">
+            {{form.non_field_errors}}
+            <div class="col-md-6 my-2">
                 {{form.name.errors}}
-                {{form.name.label_tag}}
-                {{form.name}}
+                <div class="col-sm-12">
+                    {{form.name.label_tag}}
+                    {{form.name}}
+                </div>
             </div>
-            <input type="submit" value="Create and get code">
+            <div class="col-md-6 my-2 text-center">
+                <input class="btn btn-sm btn-gray bg-ruddy text-white thick_border" type="submit" value="Create and get code">
+            </div>
         </form>
     </div>
-    <div>
+    <div class="row my-3">
         <h2>All Campaigns</h2>
-        <table class="table table-light table-striped table-sm table-bordered">
+    </div>
+    <div class="row my-3" style="overflow-x:auto;">
+        <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
             <thead>
                 <tr>
                     <th scope="col">Campaigns Created:</th>
@@ -34,7 +49,7 @@
             <tbody>
                 {% for campaign in request.user.campaigns_created.all %}
                 <tr>
-                    <td>{{ campaign.name }}</td>
+                    <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
                     <td>{{ campaign.code }}</td>
                 </tr>
                 {% endfor %}
