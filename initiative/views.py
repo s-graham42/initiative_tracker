@@ -79,10 +79,10 @@ def join_campaign(request, char_id):
                         campaign_to_join = Campaign.objects.filter(name=form.cleaned_data['name'])
                         if len(campaign_to_join) > 0:
                             campaign_to_join = campaign_to_join[0]
-                            print(form.cleaned_data)
-                            print(campaign_to_join.code)
-                            print(form.cleaned_data['code'])
-                            print(form.cleaned_data['code'].upper())
+                            # print(form.cleaned_data)
+                            # print(campaign_to_join.code)
+                            # print(form.cleaned_data['code'])
+                            # print(form.cleaned_data['code'].upper())
                             if campaign_to_join.code == form.cleaned_data['code'].upper():
                                 one_char.campaigns_joined.add(campaign_to_join)
                                 return redirect(f'/initiative/character/{char_id}')

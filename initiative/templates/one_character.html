@@ -59,15 +59,36 @@
                     <td><a href="/initiative/campaigns/{{campaign.id}}">{{campaign.name}}</a></td>
                     <td>{{ campaign.code }}</td>
                     <td>
-                        <form action="/initiative/character/{{one_char.id}}/leave_campaign" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="campaign" value="{{campaign.id}}">
-                            <input class="btn btn-sm btn-gray bg-dk_red text-white p-1 thick_border" type="submit" value="Leave Campaign">
-                        </form>
+                        <button type="button" class="btn btn-sm bg-dk_red text-white my-1 align-middle" data-toggle="modal" data-target="#leaveCampaignModal" data-campaign_name="{{campaign.name}}"data-campaign_id="{{campaign.id}}">Leave Campaign</button>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="leaveCampaignModal" tabindex="-1" role="dialog" aria-labelledby="leaveCampaignModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-parch font-weight-bold">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="leaveCampaignModalLabel">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want {{one_char.name}} to leave the following Campaign?:</h4>
+                    <h4 class="font-weight-bold" id="campaign_to_leave_name"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary border-dark" data-dismiss="modal">Close</button>
+                    <form action="/initiative/character/{{one_char.id}}/leave_campaign" method="POST">
+                        {% csrf_token %}
+                        <input id="campaign_to_leave" type="hidden" name="campaign" value="{{campaign.id}}">
+                        <button type="submit" class="btn btn-grey bg-dk_red text-white my-1 align-middle border-dark">Leave Campaign</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

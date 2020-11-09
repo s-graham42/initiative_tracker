@@ -38,14 +38,9 @@
                             <td><input type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
                             <td><input class="btn btn-sm btn-gray bg-royal text-white thick_border" type="submit" value="Submit"></td>
                         </form>
-                        <td class="text-center">
-                            <form action="/initiative/character/{{character.id}}/leave_campaign" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="campaign" value="{{campaign.id}}">
-                                <input class="btn btn-sm btn-gray bg-dk_red text-white p-1 border-dark" type="submit" value="Leave Campaign">
-                            </form>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-gray bg-dk_red text-white p-1 border-dark" href="/initiative/character/{{character.id}}">Leave Campaign</a>
                         </td>
-                        
                     </tr>
                     {% else %}
                     <tr>
@@ -61,4 +56,10 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <div class="col text-center">
+            <a class="btn btn-sm btn-gray bg-ruddy text-white mx-5 my-2 thick_border" href="/initiative/campaigns/{{campaign.id}}">Refresh</a>
+        </div>
+    </div>
+</main>
 {% endblock %}
