@@ -141,3 +141,22 @@ def enter_initiative(request, char_id):
                     this_character.save()
                     return redirect(f"/initiative/campaigns/{request.POST['current_campaign']}")
     return redirect('/')
+
+def enter_init(request):
+    if request.method == "POST":
+        print(request.POST)
+        if request.user.is_authenticated: # is user logged in?
+            char_id = request.POST['current_character']
+            this_character = Character.objects.filter(id=char_id) # does the character exist?
+            if len(this_character) > 0:
+                this_character = this_character[0]
+                if this_character.user.id == request.user.id:
+                    this_character.current_init = request.POST['current_initiative']
+                    this_character.save()
+                    one_campaign = Campaign.objects.get(id=request.POST['current_campaign'])
+                    context = {
+                        'campaign': one_campaign,
+                        'characters': Character.objects.filter(campaigns_joined=one_campaign).order_by('-current_init', '-dex', '-bonus'),
+                    }
+                    return render(request, "main_init_table.html", context)
+    return redirect('/')

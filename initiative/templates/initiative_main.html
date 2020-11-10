@@ -12,8 +12,8 @@
         <h2>Campaign Initiative:</h2>
         <p>Enter your character's initiative score and it will automatically sort.</p>
     </div>
-    <div class="row my-3" style="overflow-x:auto;">
-        <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
+    <div id="init_div" class="row my-3" style="overflow-x:auto;">
+        <table id="main_init_table" class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
             <thead>
                 <tr>
                     <th scope="col"><small>User</small></th>
@@ -32,8 +32,9 @@
                         <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
                         <td>{{ character.dex }}</td>
                         <td>+ {{ character.bonus }}</td>
-                        <form action="/initiative/enter_initiative/{{character.id}}" method="POST">
+                        <form class="init_form" action="/initiative/enter_initiative/{{character.id}}" method="POST">
                             {% csrf_token %}
+                            <input type="hidden" name="current_character" value="{{character.id}}">
                             <input type="hidden" name="current_campaign" value="{{campaign.id}}">
                             <td><input type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
                             <td><input class="btn btn-sm btn-gray bg-royal text-white thick_border" type="submit" value="Submit"></td>

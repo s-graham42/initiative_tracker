@@ -23,3 +23,21 @@ $('#leaveCampaignModal').on('show.bs.modal', function (event) {
     modal.find('#campaign_to_leave_name').text(campaign_name)
     modal.find('#campaign_to_leave').attr("value", campaign_id);
     })
+
+$('main').on('submit', 'form', function(e){
+    // console.log(e);
+    // console.log(this);
+    e.preventDefault();
+    // console.log($(this).serialize());
+    console.log("I stopped it!");
+    $.ajax({
+        url: "/initiative/enter_init/",
+        method: "POST",
+        data: $(this).serialize(),
+        success: function(serverResponse){
+            // console.log("yay!");
+            // console.log(serverResponse);
+            $("#main_init_table").html(serverResponse);
+        }
+    })
+})
