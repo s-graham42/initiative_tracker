@@ -1,43 +1,60 @@
-<table id="main_init_table" class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
-    <thead>
-        <tr>
-            <th scope="col"><small>User</small></th>
-            <th scope="col">Character</th>
-            <th scope="col">Dex</th>
-            <th scope="col">Bonus</th>
-            <th scope="col">Current Initiative</th>
-            <th scope="col" colspan="2">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for character in characters %}
-            {% if request.user.id == character.user.id %}
-            <tr class="bg-dk_red_trans text-white">
-                <td><small>{{ character.user.username }}</small></td>
-                <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
-                <td>{{ character.dex }}</td>
-                <td>+ {{ character.bonus }}</td>
-                <form class="init_form" action="/initiative/enter_initiative/{{character.id}}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="current_character" value="{{character.id}}">
-                    <input type="hidden" name="current_campaign" value="{{campaign.id}}">
-                    <td><input type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
-                    <td><input class="btn btn-sm btn-gray bg-royal text-white thick_border" type="submit" value="Submit"></td>
-                </form>
-                <td class="text-right">
-                    <a class="btn btn-sm btn-gray bg-dk_red text-white p-1 border-dark" href="/initiative/character/{{character.id}}">Leave Campaign</a>
-                </td>
-            </tr>
-            {% else %}
+<div class="row justify-content-center">
+    <h3 class="col-sm-8 mx-auto p-1 text-white text-center bg-dark thick_border">Campaign: {{campaign.name}}</h3>
+</div>
+<div class="row my-3">
+    <h3><small>Created By:</small> <strong>{{request.user.username}}</strong></h3>
+</div>
+<div>
+    <h2>Campaign Initiative:</h2>
+    <p>Enter your character's initiative score and it will automatically sort.</p>
+</div>
+<div id="init_div" class="row my-3" style="overflow-x:auto;">
+    <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
+        <thead>
             <tr>
-                <td><small>{{ character.user.username }}</small></td>
-                <td>{{ character.name }}</td>
-                <td>{{ character.dex }}</td>
-                <td>+ {{ character.bonus }}</td>
-                <td>{{ character.current_init }}</td>
-                <td> - </td>
+                <th scope="col"><small>User</small></th>
+                <th scope="col">Character</th>
+                <th scope="col">Dex</th>
+                <th scope="col">Bonus</th>
+                <th scope="col">Current Initiative</th>
+                <th scope="col" colspan="2">Actions</th>
             </tr>
-            {% endif %}
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody id="main_init_table">
+            {% for character in characters %}
+                {% if request.user.id == character.user.id %}
+                <tr class="bg-dk_red_trans text-white">
+                    <td><small>{{ character.user.username }}</small></td>
+                    <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
+                    <td>{{ character.dex }}</td>
+                    <td>+ {{ character.bonus }}</td>
+                    <form id="initform" action="/initiative/enter_initiative/{{character.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="current_character" value="{{character.id}}">
+                        <input type="hidden" name="current_campaign" value="{{campaign.id}}">
+                        <td><input type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
+                        <td><input class="btn btn-sm btn-gray bg-royal text-white thick_border" type="submit" value="Submit"></td>
+                    </form>
+                    <td class="text-right">
+                        <a class="btn btn-sm btn-gray bg-dk_red text-white p-1 border-dark" href="/initiative/character/{{character.id}}">Leave Campaign</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><small>{{ character.user.username }}</small></td>
+                    <td>{{ character.name }}</td>
+                    <td>{{ character.dex }}</td>
+                    <td>+ {{ character.bonus }}</td>
+                    <td>{{ character.current_init }}</td>
+                    <td> - </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col text-center">
+        <a class="btn btn-sm btn-gray bg-ruddy text-white mx-5 my-2 thick_border" href="/initiative/campaigns/{{campaign.id}}">Refresh</a>
+    </div>
+</div>

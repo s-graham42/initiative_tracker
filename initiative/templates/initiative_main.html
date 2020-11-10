@@ -1,7 +1,7 @@
 {% extends "inner_base.html" %}
 
 {% block content %}
-<main class="container">
+<main id="unique_test" class="container">
     <div class="row justify-content-center">
         <h3 class="col-sm-8 mx-auto p-1 text-white text-center bg-dark thick_border">Campaign: {{campaign.name}}</h3>
     </div>
@@ -13,7 +13,7 @@
         <p>Enter your character's initiative score and it will automatically sort.</p>
     </div>
     <div id="init_div" class="row my-3" style="overflow-x:auto;">
-        <table id="main_init_table" class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
+        <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
             <thead>
                 <tr>
                     <th scope="col"><small>User</small></th>
@@ -24,7 +24,7 @@
                     <th scope="col" colspan="2">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="main_init_table">
                 {% for character in characters %}
                     {% if request.user.id == character.user.id %}
                     <tr class="bg-dk_red_trans text-white">
@@ -32,7 +32,7 @@
                         <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
                         <td>{{ character.dex }}</td>
                         <td>+ {{ character.bonus }}</td>
-                        <form class="init_form" action="/initiative/enter_initiative/{{character.id}}" method="POST">
+                        <form id="initform" action="/initiative/enter_initiative/{{character.id}}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="current_character" value="{{character.id}}">
                             <input type="hidden" name="current_campaign" value="{{campaign.id}}">
