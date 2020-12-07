@@ -25,19 +25,18 @@ $('#leaveCampaignModal').on('show.bs.modal', function (event) {
     })
 
 $('body').on('submit', '#initform', function(e){
-    console.log(e);
     // console.log(this);
     e.preventDefault();
     // console.log($(this).serialize());
-    console.log("I stopped it!");
+    // console.log("I stopped it!");
     $.ajax({
         url: "/initiative/enter_init/",
         method: "POST",
         data: $(this).serialize(),
         success: function(serverResponse){
-            console.log("yay!");
-            // console.log(serverResponse);
-            $("#unique_test").html(serverResponse);
+            // console.log("yay!");
+            // console.log(dict(serverResponse));
+            $("#init_div").html(serverResponse);
         }
     })
 })
