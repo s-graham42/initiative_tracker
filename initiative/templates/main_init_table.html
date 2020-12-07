@@ -1,0 +1,26 @@
+<table class="table table-light table-sm table-bordered w-75 mx-auto font-weight-bold bg-parch-tran shadow">
+    <thead>
+        <tr>
+            <th class="d-none d-sm-table-cell" scope="col"><small>User</small></th>
+            <th scope="col">Character</th>
+            <th class="text-center"scope="col">Dex</th>
+            <th class="text-center" scope="col">Bonus</th>
+            <th class="text-center" scope="col">Current Initiative</th>
+        </tr>
+    </thead>
+    <tbody id="main_init_table">
+        {% for character in characters %}
+            {% if request.user.id == character.user.id %}
+            <tr class="bg-dk_red_trans text-white">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td class="d-none d-sm-table-cell"><small>{{ character.user.username }}</small></td>
+                <td>{{ character.name }}</td>
+                <td class="text-center">{{ character.dex }}</td>
+                <td class="text-center">+ {{ character.bonus }}</td>
+                <td class="text-center">{{ character.current_init }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

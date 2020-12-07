@@ -10,13 +10,13 @@
     </div>
     <div>
         <h2>Campaign Initiative:</h2>
-        <p>Enter your character's initiative score and it will automatically sort.</p>
+        <p class="text-center">Enter your character's initiative score and it will sort in the table below.</p>
     </div>
-    <div class="row my-3" style="overflow-x:auto;">
-        <table class="table table-light table-sm table-bordered font-weight-bold bg-parch-tran shadow">
-            <thead>
+    <!-- INPUT AREA -->
+    <div id="input_div" class="row my-3" style="overflow-x:auto;">
+        <table class="table table-light table-sm table-bordered w-75 mx-auto bg-parch-tran shadow">
+            <thead class="text-center">
                 <tr>
-                    <th scope="col"><small>User</small></th>
                     <th scope="col">Character</th>
                     <th scope="col">Dex</th>
                     <th scope="col">Bonus</th>
@@ -24,34 +24,54 @@
                     <th scope="col" colspan="2">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="main_init_table">
                 {% for character in characters %}
                     {% if request.user.id == character.user.id %}
                     <tr class="bg-dk_red_trans text-white">
-                        <td><small>{{ character.user.username }}</small></td>
                         <td><a href="/initiative/character/{{character.id}}">{{ character.name }}</a></td>
-                        <td>{{ character.dex }}</td>
-                        <td>+ {{ character.bonus }}</td>
-                        <form action="/initiative/enter_initiative/{{character.id}}" method="POST">
+                        <td class="text-center">{{ character.dex }}</td>
+                        <td class="text-center">+ {{ character.bonus }}</td>
+                        <form id="initform" action="/initiative/enter_initiative/{{character.id}}" method="POST">
                             {% csrf_token %}
+                            <input type="hidden" name="current_character" value="{{character.id}}">
                             <input type="hidden" name="current_campaign" value="{{campaign.id}}">
-                            <td><input type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
+                            <td><input class="text-center" type="number" id="current_initiative" name="current_initiative" min="-10" max="30" value="{{ character.current_init }}"></td>
                             <td><input class="btn btn-sm btn-gray bg-royal text-white thick_border" type="submit" value="Submit"></td>
                         </form>
                         <td class="text-right">
                             <a class="btn btn-sm btn-gray bg-dk_red text-white p-1 border-dark" href="/initiative/character/{{character.id}}">Leave Campaign</a>
                         </td>
                     </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- TABLE AREA -->
+    <div id="init_div" class="row my-3" style="overflow-x:auto;">
+        <table class="table table-light table-sm table-bordered w-75 mx-auto font-weight-bold bg-parch-tran shadow">
+            <thead>
+                <tr>
+                    <th class="d-none d-sm-table-cell" scope="col"><small>User</small></th>
+                    <th scope="col">Character</th>
+                    <th class="text-center"scope="col">Dex</th>
+                    <th class="text-center" scope="col">Bonus</th>
+                    <th class="text-center" scope="col">Current Initiative</th>
+                </tr>
+            </thead>
+            <tbody id="main_init_table">
+                {% for character in characters %}
+                    {% if request.user.id == character.user.id %}
+                    <tr class="bg-dk_red_trans text-white">
                     {% else %}
                     <tr>
-                        <td><small>{{ character.user.username }}</small></td>
-                        <td>{{ character.name }}</td>
-                        <td>{{ character.dex }}</td>
-                        <td>+ {{ character.bonus }}</td>
-                        <td>{{ character.current_init }}</td>
-                        <td> - </td>
-                    </tr>
                     {% endif %}
+                        <td class="d-none d-sm-table-cell"><small>{{ character.user.username }}</small></td>
+                        <td>{{ character.name }}</td>
+                        <td class="text-center">{{ character.dex }}</td>
+                        <td class="text-center">+ {{ character.bonus }}</td>
+                        <td class="text-center">{{ character.current_init }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
