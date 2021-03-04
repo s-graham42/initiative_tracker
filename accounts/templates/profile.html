@@ -3,7 +3,7 @@
 {% block content %}
 <main class="container">
     <div class="row justify-content-center">
-        <h3 class="col-6 mx-auto p-1 text-white text-center bg-dark thick_border">Profile</h3>
+        <h3 class="col-6 mx-auto p-1 text-white text-center bg-dark shadow">Profile</h3>
     </div>
     <div class="row my-3">
         <h3><small>Username:</small> <strong>{{request.user.username}}</strong></h3>
@@ -13,7 +13,7 @@
             <h4>{{request.user.username}}'s Characters</h4>
         </div>
         <div class="col-6">
-            <a class="btn btn-sm btn-gray bg-dk_red text-white thick_border shadow" href="/initiative/characters">Create a Character</a>
+            <a class="btn btn-sm btn-gray bg-dk_red text-white shadow" href="/initiative/characters">Create a Character</a>
         </div>
     </div>
     <div class="row my-3" style="overflow-x:auto;">
@@ -49,7 +49,7 @@
                             {% endfor %}
                         </ul>
                         {% else %}
-                        <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle thick_border" href="/initiative/character/{{character.id}}">Join a Campaign</a>
+                        <a class="btn btn-sm btn-gray bg-dk_red text-white mx-5 my-2 align-middle shadow" href="/initiative/character/{{character.id}}">Join a Campaign</a>
                         {% endif %}
                     </td>
                 </tr>
@@ -62,7 +62,7 @@
             <h4>{{request.user.username}}'s Created Campaigns</h4>
         </div>
         <div class="col-6">
-            <a class="btn btn-sm btn-gray bg-dk_red text-white thick_border shadow" href="/initiative/campaigns">Create a Campaign</a>
+            <a class="btn btn-sm btn-gray bg-dk_red text-white shadow" href="/initiative/campaigns">Create a Campaign</a>
         </div>
     </div>
     <div style="overflow-x:auto;" class="row my-3">
